@@ -1,4 +1,4 @@
-# step-detection
+# Step Detection Project
 step detection algorithm to analyze walking data from raw accelerometer sensor data
 
 ## Project Overview
