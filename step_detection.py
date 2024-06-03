@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import pandas as pd
 import os
 import scipy.signal
@@ -12,18 +6,10 @@ import matplotlib.pyplot as plt
 import math
 
 
-# In[4]:
-
-
 #Take in the file and make header names 
 #path = working_directory + '/Downloads/acce 3.csv'
 dataset = pd.read_csv('acce 3.csv', header = None)
 dataset.columns = ["time", "x", "y", "z"]
-
-print(dataset)
-
-
-# In[161]:
 
 
 #split columns into frequencies and timestamp 
@@ -53,8 +39,6 @@ plt.tight_layout()
 plt.show()
 
 
-# In[162]:
-
 
 #Convert signals to magnitude to remove orientation
 #Take each value from x-array, y-array, and z-array, add them up to make one data point for magntiude
@@ -70,9 +54,6 @@ dataset["magnitude"] = np.sqrt(np.abs(dataset["magnitude"]))
 mag = dataset["magnitude"]
 
 
-# In[163]:
-
-
 #Plot the new data without direction (just magnitude)
 plt.figure(figsize=(15, 4))
 
@@ -83,8 +64,6 @@ plt.margins(0, .05)
 plt.tight_layout()
 plt.show()
 
-
-# In[164]:
 
 
 # Design lowpass filter.
@@ -107,8 +86,6 @@ b, a = scipy.signal.butter(order, low, btype='low')
 filt_mag = scipy.signal.filtfilt(b, a, mag)
 
 
-# In[165]:
-
 
 plt.plot(mag, '.-', alpha=.5, label="Noisy ECG data")
 
@@ -124,26 +101,19 @@ plt.title("Effect of Different Cutoff Values")
 plt.show()
 
 
-# In[166]:
 
 
 #Plot the filtered step signal data 
-
 plt.figure(figsize=(25, 5))
-
 plt.plot(time, filt_mag)
 plt.title("Filtered Step Signal Data")
 plt.margins(0, .05)
-
 plt.tight_layout()
 plt.show()
 
 
-# In[168]:
-
 
 #Step counting
-
 #Detect peaks on the filtered magnitude data and add a threshold not all peaks are considered steps 
 #Define threshold so not all peaks are considered a step. 
 threshold = np.mean(filt_mag)
@@ -168,16 +138,3 @@ for i in heights.values():
     
 #Print Step count        
 print("The total stepcount is = ", len(step_count))
-
-
-# In[1]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
